@@ -280,7 +280,10 @@ public class ProfileManager {
     @Deprecated
     public void setActiveProfile(String profileName) {
         try {
-            getService().setActiveProfileByName(profileName);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.setActiveProfileByName(profileName);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -292,7 +295,10 @@ public class ProfileManager {
      */
     public void setActiveProfile(UUID profileUuid) {
         try {
-            getService().setActiveProfile(new ParcelUuid(profileUuid));
+           IProfileManager sService = getService();
+			if(sService != null) {
+				sService.setActiveProfile(new ParcelUuid(profileUuid));
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -304,7 +310,10 @@ public class ProfileManager {
      */
     public Profile getActiveProfile() {
         try {
-            return getService().getActiveProfile();
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getActiveProfile();
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -317,7 +326,10 @@ public class ProfileManager {
      */
     public void addProfile(Profile profile) {
         try {
-            getService().addProfile(profile);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.addProfile(profile);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -329,7 +341,10 @@ public class ProfileManager {
      */
     public void removeProfile(Profile profile) {
         try {
-            getService().removeProfile(profile);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.removeProfile(profile);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -341,7 +356,10 @@ public class ProfileManager {
      */
     public void updateProfile(Profile profile) {
         try {
-            getService().updateProfile(profile);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.updateProfile(profile);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -357,7 +375,10 @@ public class ProfileManager {
     @Deprecated
     public Profile getProfile(String profileName) {
         try {
-            return getService().getProfileByName(profileName);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getProfileByName(profileName);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -371,7 +392,10 @@ public class ProfileManager {
      */
     public Profile getProfile(UUID profileUuid) {
         try {
-            return getService().getProfile(new ParcelUuid(profileUuid));
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getProfile(new ParcelUuid(profileUuid));
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -383,13 +407,16 @@ public class ProfileManager {
      * @return {@link String[]} of profile names
      */
     public String[] getProfileNames() {
-        try {
-            Profile[] profiles = getService().getProfiles();
-            String[] names = new String[profiles.length];
-            for (int i = 0; i < profiles.length; i++) {
-                names[i] = profiles[i].getName();
-            }
-            return names;
+        try {IProfileManager sService = getService();
+			if(sService != null) {
+				Profile[] profiles = sService.getProfiles();
+				String[] names = new String[profiles.length];
+				for (int i = 0; i < profiles.length; i++) {
+					names[i] = profiles[i].getName();
+				}
+				return names;
+			} 
+			return null;
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -402,7 +429,10 @@ public class ProfileManager {
      */
     public Profile[] getProfiles() {
         try {
-            return getService().getProfiles();
+            IProfileManager sService = getService();
+			if(sService != null) {
+				returnsService.getProfiles();
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -416,7 +446,12 @@ public class ProfileManager {
      */
     public boolean profileExists(String profileName) {
         try {
-            return getService().profileExistsByName(profileName);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.profileExistsByName(profileName);
+			} else {
+				return true;
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
             // To be on the safe side, we'll return "true", to prevent duplicate profiles
@@ -432,7 +467,12 @@ public class ProfileManager {
      */
     public boolean profileExists(UUID profileUuid) {
         try {
-            return getService().profileExists(new ParcelUuid(profileUuid));
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.profileExists(new ParcelUuid(profileUuid));
+			} else {
+				return true;
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
             // To be on the safe side, we'll return "true", to prevent duplicate profiles
@@ -449,7 +489,12 @@ public class ProfileManager {
      */
     public boolean notificationGroupExists(String notificationGroupName) {
         try {
-            return getService().notificationGroupExistsByName(notificationGroupName);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.notificationGroupExistsByName(notificationGroupName);
+			} else {
+				return true;
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
             // To be on the safe side, we'll return "true", to prevent duplicate notification
@@ -465,7 +510,10 @@ public class ProfileManager {
      */
     public NotificationGroup[] getNotificationGroups() {
         try {
-            return getService().getNotificationGroups();
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getNotificationGroups();
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -479,7 +527,10 @@ public class ProfileManager {
      */
     public void addNotificationGroup(NotificationGroup group) {
         try {
-            getService().addNotificationGroup(group);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.addNotificationGroup(group);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -492,7 +543,10 @@ public class ProfileManager {
      */
     public void removeNotificationGroup(NotificationGroup group) {
         try {
-            getService().removeNotificationGroup(group);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.removeNotificationGroup(group);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -505,7 +559,10 @@ public class ProfileManager {
      */
     public void updateNotificationGroup(NotificationGroup group) {
         try {
-            getService().updateNotificationGroup(group);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.updateNotificationGroup(group);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -518,7 +575,10 @@ public class ProfileManager {
      */
     public NotificationGroup getNotificationGroupForPackage(String pkg) {
         try {
-            return getService().getNotificationGroupForPackage(pkg);
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getNotificationGroupForPackage(pkg);
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -532,7 +592,10 @@ public class ProfileManager {
      */
     public NotificationGroup getNotificationGroup(UUID uuid) {
         try {
-            return getService().getNotificationGroup(new ParcelUuid(uuid));
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.getNotificationGroup(new ParcelUuid(uuid));
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
@@ -559,7 +622,10 @@ public class ProfileManager {
      */
     public void resetAll() {
         try {
-            getService().resetAll();
+            IProfileManager sService = getService();
+			if(sService != null) {
+				sService.resetAll();
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         } catch (SecurityException e) {
@@ -573,7 +639,10 @@ public class ProfileManager {
      */
     public boolean isProfilesEnabled() {
         try {
-            return getService().isEnabled();
+            IProfileManager sService = getService();
+			if(sService != null) {
+				return sService.isEnabled();
+			}
         } catch (RemoteException e) {
             Log.e(TAG, e.getLocalizedMessage(), e);
         }
